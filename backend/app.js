@@ -7,6 +7,7 @@ const port = process.env['PORT'] || 4301;
 const uri = process.env['MONGO_URI'];
 
 var cliente_route = require('./routes/cliente');
+var admin_route = require('./routes/admin');
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
@@ -45,5 +46,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api', cliente_route);
+app.use('/api', admin_route);
+
 
 module.exports = app;

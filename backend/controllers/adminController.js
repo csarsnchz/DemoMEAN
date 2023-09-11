@@ -1,21 +1,21 @@
 'use strict'
 
-var Cliente = require('../models/cliente');
+var Admin = require('../models/admin');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
 
-const registro_cliente = async function(req, res){
+const registro_admin = async function(req, res){
   var data = req.body;
-  var clientes_array =  [];
+  var admin_array =  [];
 
-  clientes_array = await Cliente.find({email: data.email});
+  admin_array = await Admin.find({email: data.email});
 
-  if(clientes_array.length == 0){
+  if(admin_array.length == 0){
     if (data.password){
       bcrypt.hash(data.password,null,null, async function(err, hash){
         if (hash){
           data.password = hash;
-          var reg = await Cliente.create(data);
+          var reg = await Admin.create(data);
           res.status(200).send({data:reg});
         } else {
            res.status(200).send({message:'Error Server',data:undefined});
@@ -31,16 +31,16 @@ const registro_cliente = async function(req, res){
   
 }
 
-const login_cliente = async function(req, res){
+const login_admin = async function(req, res){
   var data = req.body;
-  var cliente_array = [];
+  var admin_array = [];
 
-  cliente_array = await Cliente.find({email: data.email});
+  admin_array = await Admin.find({email: data.email});
 
-  if (cliente_array == 0){
+  if (admin_array == 0){
     res.status(200).send({message: 'No se encontro el usuario', data:undefined});
   } else {
-    let user = cliente_array[0];
+    let user = admin_array[0];
 
     bcrypt.compare(data.password, user.password, async function(err,check){
       if (check){
@@ -58,6 +58,6 @@ const login_cliente = async function(req, res){
 }
 
 module.exports = {
-  registro_cliente,
-  login_cliente
+  registro_admin,
+  login_admin
 }
