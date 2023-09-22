@@ -15,16 +15,15 @@
         <div class="card-header">
             <form class="form-inline pt-2">
                 <label class="sr-only" for="inline-form-input-name">Apellidos</label>
-                <input class="form-control mb-3 mr-sm-4" type="text" id="inline-form-input-name" placeholder="John Doe">
+                <input class="form-control mb-3 mr-sm-4" (keyup)="filtro('apellidos')" name="filtro_apellido" [(ngModel)]="filtro_apellido" type="text" id="inline-form-input-name" placeholder="Last Name">
                 <label class="sr-only" for="inline-form-input-username">Correo</label>
                 <div class="input-group mb-3 mr-sm-4">
                 <div class="input-group-prepend">
                     <div class="input-group-text">@</div>
                 </div>
-                <input class="form-control" type="text" id="inline-form-input-username" placeholder="Username">
+                <input class="form-control" (keyup)="filtro('Correo')" name="filtro_email" [(ngModel)]="filtro_email" type="text" id="inline-form-input-username" placeholder="Email">
                 </div>
-            
-                <button class="btn btn-primary mb-3" type="submit">Buscar cliente</button>
+
             </form>
         </div>
         <div class="card-body">
@@ -36,12 +35,24 @@
                       <th>First Name</th>
                       <th>Last Name</th>
                       <th>Email</th>
-                      <th>Options</th>
+                      <th></th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody *ngFor="let item of clientes; let indice = index">
                     <tr>
-
+                      <td>{{indice}+1}</td>
+                      <td>{{item.nombres}}</td>
+                      <td>{{item.apellidos}}</td>
+                      <td>{{item.email}}</td>
+                      <td>
+                        <div class="btn-group dropdown d-inline-block mb-3 me-2">
+                          <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Update</a>
+                            <a class="dropdown-item" href="#">Delete</a>
+                          </div>
+                        </div>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
