@@ -14,11 +14,9 @@ COPY ./models ./models
 COPY ./routes ./routes
 COPY app.js app.js
 
-# Install node packages, install serve, build the app, and remove dependencies at the end
-RUN npm install \
-    && rm -fr node_modules
+RUN npm install
 
 EXPOSE 4301
 
 # Start the app using serve command
-CMD [ "node index.js"  ]
+CMD [ "node", "app.js"  ]

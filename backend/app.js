@@ -34,6 +34,24 @@ async function run() {
 }
 run().catch(console.dir);
 
+const connectDB = async () => {
+  uri;
+  const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  };
+
+  try {
+    await mongoose.connect(uri, options);
+    console.log('Successfully connected to MongoDB Atlas');
+    app.listen(port, () => console.log('Server running on port: ' + port));
+  } catch (error) {
+    console.error('Error connecting to MongoDB Atlas:', error);
+  }
+};
+
+connectDB().catch(console.dir);
+
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json({ limit: '50mb', extended: true }))
 
