@@ -1,5 +1,24 @@
-import { CanActivateFn } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CanActivate } from '@angular/router';
+import { Observable } from 'rxjs';
 
-export const adminGuard: CanActivateFn = (route, state) => {
-  return true;
-};
+import { AdminService } from '.services/admin.service';
+import { Router } from '@angular/router';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminGuard implements CanActivate {
+  constructor(
+    private _adminService: AdminService,  
+    private _router: Router
+  ) {}
+
+  canActivate(): any {
+    if (!this._adminService.isAuthenticated('admin')) {
+      this._router.navigate(['/login']);
+      return false;
+    }
+    return true;
+  }
+}

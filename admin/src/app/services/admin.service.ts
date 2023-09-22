@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { global } form './global';
-import { HttpClient, HttpHeaders } from '@angular/commons/http'
+import { HttpClient, HttpHeaders } from '@angular/commons/http';
+
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -22,4 +24,28 @@ export class AdminService {
   getToken(){
     return localStorage.getItem('token');
   }
+
+  public isAuthenticated(allowedRoles: string[]): boolean {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+    const helper = new JwtHelperService();
+    var decodedToken = helper.decodeToken(token);
+
+    if (!decodedToken) {
+      localStorage.removeItem('token');
+      return false;
+    }
+    }catch (error) {
+      localStorage.removeItem('token');
+      return false;
+    }
+
+    return allowedRoles.includes(decodedToken['role']);
+  }
+
 }
