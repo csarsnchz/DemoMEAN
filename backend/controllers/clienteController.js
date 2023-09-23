@@ -59,27 +59,33 @@ const login_cliente = async function(req, res){
 
 const listar_clientes_filtro_admin = async function(req, res){
 
-  let tipo = req.params['tipo'];
-  let filtro = req.params['filtro'];
-
-  if (tipo == null || tipo == 'null'){  
-    let clientes = await Cliente.find();
-    res.status(200).send({data:clientes});
-    return;
-  }else {
-    if (tipo == 'email'){
-      let clientes = await Cliente.find({email: new RegExp(filtro, 'i')});
-      res.status(200).send({data:clientes});
-      return;
-    } else if (tipo == 'apellidos'){
-      let clientes = await Cliente.find({apellidos: new RegExp(filtro, 'i')});
-      res.status(200).send({data:clientes});
-      return;
+  if(!req.user){
+    if(req.user.role == 'admin'){
+      let tipo = req.params['tipo'];
+      let filtro = req.params['filtro'];
+    
+      if (tipo == null || tipo == 'null'){  
+        let clientes = await Cliente.find();
+        res.status(200).send({data:clientes});
+        return;
+      }else {
+        if (tipo == 'email'){
+          let clientes = await Cliente.find({email: new RegExp(filtro, 'i')});
+          res.status(200).send({data:clientes});
+          return;
+        } else if (tipo == 'apellidos'){
+          let clientes = await Cliente.find({apellidos: new RegExp(filtro, 'i')});
+          res.status(200).send({data:clientes});
+          return;
+        }
+      }  
+    } else {
+      res.status(401).send({message:'No Authorized'});
     }
-  
-
-  
-
+  } else {
+    res.status(403).send({message:'Forbidden'});
+  } 
+}
 
 module.exports = {
   registro_cliente,

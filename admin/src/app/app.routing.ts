@@ -7,10 +7,10 @@ import { adminGuard } from "./guards/admin.guard";
 import { IndexClienteComponent } from "./components/clientes/index-cliente/index-cliente.component";
 
 const appRoute: Routes[
-  { path: '', component: inicioComponent, CanActivateFn: [AdminGuard]	},
+  { path: 'inicio', component: inicioComponent, CanActivateFn: [adminGuard]	},
   
-  { path 'panel', children: [
-    {path 'clientes', component: IndexClienteComponent, CanActivateFn: [ adminGuard]}
+  { path: 'panel', children: [
+    {path: 'clientes', component: IndexClienteComponent, CanActivateFn: [adminGuard]}
   ]},
   
   { path: 'login', component: LoginComponent }
