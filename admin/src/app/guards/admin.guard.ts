@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { AdminService } from '.services/admin.service';
+import { AdminService } from '../services/admin.service';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class AdminGuard implements CanActivate {
   ) {}
 
   canActivate(): any {
-    if (!this._adminService.isAuthenticated('admin')) {
+    if (!this._adminService.isAuthenticated(['admin'])) {
       this._router.navigate(['/login']);
       return false;
     }

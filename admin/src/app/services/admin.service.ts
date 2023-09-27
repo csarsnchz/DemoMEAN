@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { global } form './global';
-import { HttpClient, HttpHeaders } from '@angular/commons/http';
+import { global } from './global';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -16,7 +16,7 @@ export class AdminService {
   ) {
     this.url = global.url;
   }
-  login_admin(data):Observable<any>{
+  login_admin(data: { email: any; password: any; }):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
     return this._http.post(this.url+'login_admin',data,{headers:headers});
   }

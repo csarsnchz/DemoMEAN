@@ -28,7 +28,7 @@ export class IndexClienteComponent implements OnInit{
   }
 
   init_Data(){
-    this._clienteService.listar_clientes_filtro_admin(null,null,this.token).subscribe(
+    this._clienteService.listar_clientes_filtro_admin(null, null, this.token).subscribe(
       response=>{
         console.log(response);
       },
@@ -38,11 +38,11 @@ export class IndexClienteComponent implements OnInit{
     );
   }
 
-  filtro(tipo){
+  filtro(tipo: string){
     
     if(tipo == 'apellidos'){
       if(this.filtro_apellidos){
-        this._clienteService.listar_clientes_filtro_admin(tipo,this.filtro_apellidos,this.token).subscribe(
+        this._clienteService.listar_clientes_filtro_admin(tipo, this.filtro_apellidos, this.token).subscribe(
           response=>{
             console.log(response);
           },
@@ -55,7 +55,7 @@ export class IndexClienteComponent implements OnInit{
       }
     }else if(tipo == 'email'){
       if(this.filtro_email){
-        this._clienteService.listar_clientes_filtro_admin(tipo,this.filtro_email,this.token).subscribe(
+        this._clienteService.listar_clientes_filtro_admin(tipo, this.filtro_email, this.token).subscribe(
           response=>{
             console.log(response);
           },

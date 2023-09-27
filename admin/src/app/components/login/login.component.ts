@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin.service';
 
 declare var jQuery:any;
 declare var $:any;
-declare var izitoast;
+declare var izitoast:any;
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,7 @@ export class LoginComponent {
   
   }
 
-  login(LoginForm){
+  login(LoginForm: { valid: any; }){
     if(LoginForm.valid){
       console.log(this.user);
       let data = {  
@@ -57,10 +58,9 @@ export class LoginComponent {
             
             this._router.navigate(['/']);
           
-        },
+        }},
         error => {}
-
-      )
+      );
     }else{
       izitoast.show({
         title: 'Error',
