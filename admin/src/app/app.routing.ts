@@ -1,13 +1,13 @@
 import { Routes, RouterModule } from "@angular/router";
 import { ModuleWithProviders } from "@angular/core";
-import { inicioComponent } from "./components/inicio/inicio.component";
+import { InicioComponent } from "./components/inicio/inicio.component";
 import { LoginComponent } from "./components/login/login.component";
 
 import { adminGuard } from "./guards/admin.guard";
 import { IndexClienteComponent } from "./components/clientes/index-cliente/index-cliente.component";
 import { CreateClienteComponent } from "./components/clientes/create-cliente/create-cliente.component";
 
-const appRoute: Routes[
+const appRoute: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full'},
   { path: 'inicio', component: inicioComponent, CanActivateFn: [adminGuard]	},
   
@@ -17,7 +17,7 @@ const appRoute: Routes[
   ]},
   
   { path: 'login', component: LoginComponent }
-]
+];
 
 export const appRoutingProviders: any[] = [];
-export const routing ModuleWithProviders<any> = RouterModule.forRoot(appRoute);
+export const routing: ModuleWithProviders<any> = RouterModule.forRoot(appRoute);
