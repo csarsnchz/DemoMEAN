@@ -16,6 +16,9 @@ export class IndexClienteComponent implements OnInit{
   public filtro_email = '';
   public token;
 
+  public page = 1;
+  public pageSize = 1;
+
   constructor(
     private _clienteService : ClienteService, 
     private _adminService: AdminService
