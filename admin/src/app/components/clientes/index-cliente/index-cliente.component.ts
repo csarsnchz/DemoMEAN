@@ -73,4 +73,9 @@ export class IndexClienteComponent implements OnInit{
 
   }
 
+  handlePageChange(newPageSize: number) {
+    this.pageSize = newPageSize;
+    // Aquí puedes manejar cualquier otra lógica que necesites cuando cambia el tamaño de la página
+  }
+
 }

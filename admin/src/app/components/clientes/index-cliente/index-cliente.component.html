@@ -63,7 +63,8 @@
         <div class="card-footer">
           <ngb-pagination *ngIf="clientes.length >= 1" 
             [(page)]="page"
-            [(pageSize)]="pageSize"
-            [(collectionSize)]="clientes.length"></ngb-pagination>
+            [pageSize]="pageSize"
+            [collectionSize]="clientes.length"
+            (pageChange)="handlePageChange($event)"></ngb-pagination>
         </div>
   </div>
