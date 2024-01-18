@@ -50,8 +50,8 @@
                         <div class="btn-group dropdown d-inline-block mb-3 me-2">
                           <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#"[routerLink]="['/panel/clientes',item._id]">Editar Cliente</a>
-                            <a class="dropdown-item" href="#">Eliminar Cliente</a>
+                            <a class="dropdown-item" [routerLink]="['/panel/clientes',item._id]">Editar Cliente</a>
+                            <a class="dropdown-item" [routerLink]="['/panel/clientes',item._id]">Eliminar Cliente</a>
                           </div>
                         </div>
                       </td>

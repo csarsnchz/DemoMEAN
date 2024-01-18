@@ -159,11 +159,32 @@ const actualizar_cliente_admin = async function(req, res){
   } 
 }
 
+const eliminar_cliente_admin = async function(req, res){
+  if(req.user){
+    if (req.user.role == 'admin'){
+      let id = req.params['id'];
+      try {
+        let cliente = await Cliente.findByIdAndRemove({_id:id});
+        res.status(200).send({data:cliente});
+      } catch (error) {
+        console.log(error);
+        res.status(200).send({data:undefined});
+      }
+      
+    } else {
+      res.status(401).send({message:'No Authorized'});
+    }
+  } else {
+    res.status(403).send({message:'Forbidden'});
+  } 
+}
+
 module.exports = {
   registro_cliente,
   login_cliente,
   listar_clientes_filtro_admin,
   registro_cliente_admin,
   obtener_cliente_admin,
-  actualizar_cliente_admin
+  actualizar_cliente_admin,
+  eliminar_cliente_admin
 }
