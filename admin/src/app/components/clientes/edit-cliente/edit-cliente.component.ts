@@ -16,6 +16,8 @@ export class EditClienteComponent implements OnInit{
   public cliente: any = {}
   public id: any;
   public token: any;
+  public loading_btn = false;
+  public load_data = true;
 
   constructor(
     private _route: ActivatedRoute,
@@ -30,14 +32,19 @@ export class EditClienteComponent implements OnInit{
     this._route.params.subscribe(
       params => {
         this.id = params['id'];
+
         this._clienteService.obtener_cliente_admin(this.id,this.token).subscribe(
           response => {
             
             if(response.data == undefined){
               console.log('No hay datos');
+              this.loading_btn = false;
+              this.load_data = false;
             } else {
               console.log('Datos obtenidos');
               this.cliente = response.cliente;
+              this.loading_btn = false;
+              this.load_data = false;
             }
           },
           error => {
@@ -51,6 +58,7 @@ export class EditClienteComponent implements OnInit{
   actualizar(updateForm: NgForm){
     console.log(updateForm.value);
     if(updateForm.valid){
+      this.loading_btn = true;
       this._clienteService.actualizar_cliente_admin(this.id,this.cliente,this.token).subscribe(
         response => {
           if(response.status == 'success'){
@@ -63,6 +71,7 @@ export class EditClienteComponent implements OnInit{
               message: 'Cliente actualizado correctamente',
               position: 'topRight'
             });
+            this.loading_btn = false;
             this._router.navigate(['/panel/clientes']);
           } else {
             console.log('Cliente no actualizado');

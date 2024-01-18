@@ -19,6 +19,7 @@ export class IndexClienteComponent implements OnInit{
   public filtro_apellidos = '';
   public filtro_email = '';
   public token;
+  public loading = true;
 
   public page = 1;
   public pageSize = 20;
@@ -38,6 +39,8 @@ export class IndexClienteComponent implements OnInit{
     this._clienteService.listar_clientes_filtro_admin(null, null, this.token).subscribe(
       (response: any) => {
         console.log(response);
+        this.clientes = response.clientes;
+        this.loading = false;
       },
       (error: any) => {
         console.log(error);
@@ -49,9 +52,12 @@ export class IndexClienteComponent implements OnInit{
     
     if(tipo == 'apellidos'){
       if(this.filtro_apellidos){
+        this.loading = true;
         this._clienteService.listar_clientes_filtro_admin(tipo, this.filtro_apellidos, this.token).subscribe(
           (response: any) => { 
             console.log(response);
+            this.clientes = response.clientes;
+            this.loading = false;
           },
           (error: any) => { 
             console.log(error);
@@ -62,9 +68,12 @@ export class IndexClienteComponent implements OnInit{
       }
     }else if(tipo == 'email'){
       if(this.filtro_email){
+        this.loading = true;
         this._clienteService.listar_clientes_filtro_admin(tipo, this.filtro_email, this.token).subscribe(
           (response: any)=>{
             console.log(response);
+            this.clientes = response.clientes;
+            this.loading = false;
           },
           (error: any)=>{
             console.log(error);

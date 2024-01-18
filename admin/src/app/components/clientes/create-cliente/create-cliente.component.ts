@@ -16,6 +16,7 @@ export class CreateClienteComponent implements OnInit {
     genero: ''
   };
   public token: any;
+  public loading_btn = false;
 
   constructor(
     private _clienteService: ClienteService,
@@ -32,6 +33,7 @@ export class CreateClienteComponent implements OnInit {
     console.log(registroForm);
     if (!registroForm.invalid) {
       console.log(this.cliente);
+      this.loading_btn = true;
       this._clienteService.registro_cliente_admin(this.cliente, this.token).subscribe(
         (response:any) => {
           console.log(response);
@@ -55,7 +57,8 @@ export class CreateClienteComponent implements OnInit {
               telefono: '',
               dni: '',
               role: 'cliente'
-            };  
+            }; 
+            this.loading_btn = false; 
             this._router.navigate(['/panel/clientes']);
           } else {
             izitoast.show({
