@@ -51,9 +51,28 @@
                           <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
                           <div class="dropdown-menu">
                             <a class="dropdown-item" [routerLink]="['/panel/clientes',item._id]">Editar Cliente</a>
-                            <a class="dropdown-item" [routerLink]="['/panel/clientes',item._id]">Eliminar Cliente</a>
+                            <a class="dropdown-item" style="cursor: pointer;" data-toggle="modal" [attr.data-target]="'#delete-'+item._id">Eliminar Cliente</a>
                           </div>
                         </div>
+
+                        <div class="modal" id="delete-{{item._id}}" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Eliminar, {{item.nombres}} {{item.apellidos}}</h5>
+                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <p class="fs-sm">Desea eliminar este cliente</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button class="btn btn-secondary btn-sm" type="button" data-bs-dismiss="modal">Cancelar</button>
+                                <button class="btn btn-primary btn-sm" type="button" (click)="eliminar(item._id)">Sí, eliminar</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
                       </td>
                     </tr>
                   </tbody>

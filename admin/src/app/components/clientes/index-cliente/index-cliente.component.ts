@@ -4,6 +4,8 @@ import { response } from 'express';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { AdminService } from 'src/app/services/admin.service';
 
+declare var izitoast:any;
+
 @Component({
   selector: 'app-index-cliente',
   templateUrl: './index-cliente.component.html',
@@ -32,10 +34,10 @@ export class IndexClienteComponent implements OnInit{
 
   init_Data(){
     this._clienteService.listar_clientes_filtro_admin(null, null, this.token).subscribe(
-      response=>{
+      (response: any) => {
         console.log(response);
       },
-      error=>{
+      (error: any) => {
         console.log(error);
       }
     );
@@ -46,10 +48,10 @@ export class IndexClienteComponent implements OnInit{
     if(tipo == 'apellidos'){
       if(this.filtro_apellidos){
         this._clienteService.listar_clientes_filtro_admin(tipo, this.filtro_apellidos, this.token).subscribe(
-          response=>{
+          (response: any) => { 
             console.log(response);
           },
-          error=>{
+          (error: any) => { 
             console.log(error);
           }
         );
@@ -59,10 +61,10 @@ export class IndexClienteComponent implements OnInit{
     }else if(tipo == 'email'){
       if(this.filtro_email){
         this._clienteService.listar_clientes_filtro_admin(tipo, this.filtro_email, this.token).subscribe(
-          response=>{
+          (response: any)=>{
             console.log(response);
           },
-          error=>{
+          (error: any)=>{
             console.log(error);
           }
         );
@@ -76,6 +78,26 @@ export class IndexClienteComponent implements OnInit{
   handlePageChange(newPageSize: number) {
     this.pageSize = newPageSize;
     // Aquí puedes manejar cualquier otra lógica que necesites cuando cambia el tamaño de la página
+  }
+
+  eliminar(id: string){
+    this._clienteService.eliminar_cliente_admin(id, this.token).subscribe(
+      (response: any) => {
+        console.log(response);
+        izitoast.show({
+          title: 'Success',
+          titleColor: '#1DC74C',
+          color: '#FFF',
+          class: 'text-success',
+          message: 'Cliente eliminado correctamente',
+          position: 'topRight'
+        });
+        this.init_Data();
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
 }
