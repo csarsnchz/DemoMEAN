@@ -5,6 +5,8 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { AdminService } from 'src/app/services/admin.service';
 
 declare var izitoast:any;
+declare var jQuery:any;
+declare var $:any;
 
 @Component({
   selector: 'app-index-cliente',
@@ -92,6 +94,8 @@ export class IndexClienteComponent implements OnInit{
           message: 'Cliente eliminado correctamente',
           position: 'topRight'
         });
+        $('#delete-'+id).modal('hide');
+        $('.modal-backdrop').removeClass('show');
         this.init_Data();
       },
       (error: any) => {
