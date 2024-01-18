@@ -59,7 +59,7 @@ const login_cliente = async function(req, res){
 
 const listar_clientes_filtro_admin = async function(req, res){
 
-  if(!req.user){
+  if(req.user){
     if(req.user.role == 'admin'){
       let tipo = req.params['tipo'];
       let filtro = req.params['filtro'];
@@ -101,13 +101,69 @@ const registro_cliente_admin = async function(req, res){
            res.status(200).send({message:'Error Server',data:undefined});
         }
       });
+    } else {
+      res.status(401).send({message:'No Authorized'});
     }
+  } else {
+    res.status(403).send({message:'Forbidden'});
   } 
 } 
+
+const obtener_cliente_admin = async function(req, res){
+  if(req.user){
+    if (req.user.role == 'admin'){
+      let id = req.params['id'];
+      try {
+        let cliente = await Cliente.findById({_id:id});
+        res.status(200).send({data:cliente});
+      } catch (error) {
+        console.log(error);
+        res.status(200).send({data:undefined});
+      }
+      
+    } else {
+      res.status(401).send({message:'No Authorized'});
+    }
+  } else {
+    res.status(403).send({message:'Forbidden'});
+  } 
+}
+
+const actualizar_cliente_admin = async function(req, res){
+  if(req.user){
+    if (req.user.role == 'admin'){
+      let id = req.params['id'];
+      let data = req.body;
+      try {
+        let cliente = await Cliente.findByIdAndUpdate({_id:id},
+          {
+            nombres: data.nombres,
+            apellidos: data.apellidos,
+            email: data.email,
+            telefono: data.telefono,
+            fec_nac: data.fec_nac,
+            dni: data.dni,
+            genero: data.genero
+          });
+        res.status(200).send({data:cliente});
+      } catch (error) {
+        console.log(error);
+        res.status(200).send({data:undefined});
+      }
+      
+    } else {
+      res.status(401).send({message:'No Authorized'});
+    }
+  } else {
+    res.status(403).send({message:'Forbidden'});
+  } 
+}
 
 module.exports = {
   registro_cliente,
   login_cliente,
   listar_clientes_filtro_admin,
-  registro_cliente_admin
+  registro_cliente_admin,
+  obtener_cliente_admin,
+  actualizar_cliente_admin
 }
