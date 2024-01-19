@@ -49,7 +49,7 @@
                       </td>
                     </tr>
                   </tbody>
-                  <ng-containter *ngIf="!loading">
+                  <ng-container *ngIf="!loading">
                     <tbody  *ngFor="let item of clientes| slice: (page-1)*pageSize: (page-1)*pageSize + pageSize; let indice = index">
                       <tr>
                         <td>{{indice}+1}</td>
@@ -86,7 +86,7 @@
                         </td>
                       </tr>
                     </tbody>
-                  </ng-containter>
+                  </ng-container>
                 </table>
             </div>
         </div>

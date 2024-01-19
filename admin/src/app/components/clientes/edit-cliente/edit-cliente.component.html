@@ -8,12 +8,12 @@
     </div>
   </div>
 
-  <form #updateForm="ngform" (ngSubmit)="actualizar(registroForm)">
+  <form #updateForm="ngForm" (ngSubmit)="actualizar(updateForm)">
     <div class="card box-shadow-sm">
           <div class="card-header">
               <h5 style="margin-bottom: 0px;">Actualizar cliente</h5>
           </div>
-          <ng-container *ngIf="load_data>
+          <ng-container *ngIf="load_data">
             <div class="card-body">
               <div class="row">
                 <div class="col-12 text-center">
@@ -65,7 +65,7 @@
             <div class="card-body" *ngIf="cliente == undefined">
               <h3 class="text-center">Cliente no encontrado</h3>
               <div class="row">
-                <div class="col-3 mx-auto>
+                <div class="col-3 mx-auto">
                   <img src="assets/img/advertencia.png" style="width: 100%;" class="img-fluid" alt="Not found">
                 </div>
               </div>
